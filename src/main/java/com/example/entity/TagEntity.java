@@ -11,4 +11,5 @@ import lombok.Setter;
 @Entity
 @Table(name = "tag")
 public class TagEntity extends BaseIntegerEntity {
+    private String name;
 }

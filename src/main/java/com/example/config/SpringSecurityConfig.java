@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig {
 
     @Autowired
@@ -26,6 +28,8 @@ public class SpringSecurityConfig {
     private JwtTokenFilter jwtTokenFilter;
     @Autowired
     private MD5Util md5Util;
+
+    public static String[] AUTH_WHITELIST = {"/api/v1/category/get","/api/v1/tag/get"};
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -39,7 +43,9 @@ public class SpringSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.
                 authorizeHttpRequests((c) -> {
-                    c.requestMatchers("").permitAll()
+                    c.requestMatchers(AUTH_WHITELIST).permitAll()
+                            .requestMatchers("/api/v1/category/**").hasRole("ADMIN")
+                            .requestMatchers("/api/v1/tag/**").permitAll()
                             .anyRequest().authenticated();
                 }).
                 addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -60,6 +66,7 @@ public class SpringSecurityConfig {
             }
         };
     }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
