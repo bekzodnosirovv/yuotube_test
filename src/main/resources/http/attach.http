@@ -1,0 +1,15 @@
+### save
+POST http://localhost:8080/api/v1/attach/open/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="bekzod.mp4"
+
+< C:\Users\lenovo\Desktop\test\bekzod.mp4
+
+### get image img
+GET http://localhost:8080/api/v1/attach/open/14f3339d-6acc-4481-88a7-4fef816c8139/img
+
+
+### get by general
+GET http://localhost:8080/api/v1/attach/open/14f3339d-6acc-4481-88a7-4fef816c8139

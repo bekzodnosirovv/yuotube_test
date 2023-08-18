@@ -4,13 +4,9 @@ import com.example.entity.base.BaseIntegerEntity;
 import com.example.enums.ProfileRole;
 import com.example.enums.ProfileStatus;
 import jakarta.persistence.*;
-import jdk.jshell.Snippet;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.util.Timer;
 
-import javax.management.relation.Role;
-import java.io.ObjectInputFilter;
 
 @Getter
 @Setter
@@ -25,7 +21,7 @@ public class ProfileEntity extends BaseIntegerEntity {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "imag_id")
+    @Column(name = "image_id")
     private String image_id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id", insertable = false, updatable = false)

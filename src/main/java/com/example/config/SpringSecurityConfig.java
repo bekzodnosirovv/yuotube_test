@@ -29,7 +29,8 @@ public class SpringSecurityConfig {
     @Autowired
     private MD5Util md5Util;
 
-    public static String[] AUTH_WHITELIST = {"/api/v1/category/get","/api/v1/tag/get"};
+    public static String[] AUTH_WHITELIST = {"/api/v1/category/get", "/api/v1/tag/get",
+            "/api/v1/auth/**","/api/v1/attach/open/**"};
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

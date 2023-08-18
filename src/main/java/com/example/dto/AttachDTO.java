@@ -8,4 +8,11 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AttachDTO {
+    private String id;
+    private String originName;
+    private long size;
+    private String type;
+    private String path;
+    private long duration;
+    private String url;
 }

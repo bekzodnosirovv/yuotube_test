@@ -10,6 +10,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     private final String tokenSecretKey = "@youtube_test@";
+    private final int tokenLifeTime = 1000 * 3600 * 24*7;
 
     public String encode(Integer id, String email) {
         JwtBuilder jwtBuilder = Jwts.builder();
@@ -17,7 +18,6 @@ public class JwtUtil {
         jwtBuilder.signWith(SignatureAlgorithm.HS512, tokenSecretKey);
         jwtBuilder.claim("id", id);
         jwtBuilder.claim("email", email);
-        int tokenLifeTime = 1000 * 3600 * 24;
         jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + tokenLifeTime));
         jwtBuilder.setIssuer("youtube_test");
         return jwtBuilder.compact();
